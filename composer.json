@@ -1,6 +1,7 @@
 {
   "name": "zimosworld/ssltools",
   "description": "Tools to decode/match SSL Certificate and check installed SSL Certificates",
+  "license": "MIT",
   "authors": [
     {
       "name": "Jonathan Zimros",
