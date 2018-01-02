@@ -1,0 +1,19 @@
+{
+  "name": "zimosworld/ssltools",
+  "description": "Tools to decode/match SSL Certificate and check installed SSL Certificates",
+  "authors": [
+    {
+      "name": "Jonathan Zimros",
+      "email": "john@zimosworld.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Zimosworld\\SSLTools\\": "src/",
+      "Zimosworld\\Tests\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "6.5.*"
+  }
+}
