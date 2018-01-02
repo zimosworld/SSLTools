@@ -21,11 +21,11 @@ composer require zimosworld/ssltools
 
 ### List of commands
 
-decodeCertificate( $certificate )
-decodeCertificateRequest( $certificateRequest )
-matchWithPrivateKey( $privateKey, $certificate )
-matchWithCSR( $certificateRequest, $certificate )
-checkInstalledCertificate( $hostname )
+* decodeCertificate( $certificate )
+* decodeCertificateRequest( $certificateRequest )
+* matchWithPrivateKey( $privateKey, $certificate )
+* matchWithCSR( $certificateRequest, $certificate )
+* checkInstalledCertificate( $hostname )
 
 ### Examples
 
