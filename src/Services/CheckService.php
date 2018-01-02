@@ -26,14 +26,14 @@ class CheckService extends BaseService implements CheckInterface {
 	}
 
 	/**
-	 * @param string $hostname
+	 * @param string $url
 	 *
 	 * @return Check
 	 * @throws \Exception
 	 */
-	public function checkInstalledCertificate( $hostname = '' ) {
+	public function checkInstalledCertificate( $url = '' ) {
 
-		$this->determineLookupType( $hostname );
+		$this->determineLookupType( $url );
 		$this->runLookup();
 		$this->checkIssuer();
 
@@ -43,22 +43,22 @@ class CheckService extends BaseService implements CheckInterface {
 	/**
 	 * Determine lookup type and split out hostname and port
 	 *
-	 * @param $hostname
+	 * @param $url
 	 *
 	 * @throws Exception
 	 */
-	private function determineLookupType( $hostname ) {
+	private function determineLookupType( $url ) {
 
 		switch ( true ) {
-			case ( filter_var( $hostname, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6 ) ) :
-				$this->check->setLookupHost( "[{$hostname}]" );
+			case ( filter_var( $url, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6 ) ) :
+				$this->check->setLookupHost( "[{$url}]" );
 				break;
-			case ( filter_var( $hostname, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 ) ) :
-				$this->check->setLookupHost( $hostname );
+			case ( filter_var( $url, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 ) ) :
+				$this->check->setLookupHost( $url );
 				break;
-			case ( filter_var( $hostname, FILTER_VALIDATE_URL, FILTER_FLAG_HOST_REQUIRED ) ) :
+			case ( filter_var( $url, FILTER_VALIDATE_URL, FILTER_FLAG_HOST_REQUIRED ) ) :
 
-				$parsedHost = parse_url( $hostname );
+				$parsedHost = parse_url( $url );
 
 				if ( empty( $parsedHost['host'] ) ) {
 					throw new Exception( 'Invalid lookup host' );

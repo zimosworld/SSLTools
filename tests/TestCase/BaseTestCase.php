@@ -2,6 +2,10 @@
 
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class BaseTestCase
+ * @package Zimosworld\Tests\TestCase
+ */
 class BaseTestCase extends TestCase {
 
 	private $certificate = '-----BEGIN CERTIFICATE-----

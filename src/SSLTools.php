@@ -96,12 +96,12 @@ class SSLTools {
 	}
 
 	/**
-	 * @param $host
+	 * @param $url
 	 *
 	 * @return Models\Check
 	 * @throws \Exception
 	 */
-	public function checkInstalledCertificate( $host ) {
-		return $this->check->checkInstalledCertificate( $host );
+	public function checkInstalledCertificate( $url ) {
+		return $this->check->checkInstalledCertificate( $url );
 	}
 }
