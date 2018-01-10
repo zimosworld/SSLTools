@@ -2,7 +2,7 @@
 
 namespace Zimosworld\SSLTools\Services;
 
-use Exception;
+use Zimosworld\SSLTools\Exception\CertificateParseException;
 use Zimosworld\SSLTools\Models\Certificate;
 
 /**
@@ -23,14 +23,13 @@ class BaseService {
 	 * @param $certificate
 	 *
 	 * @return Certificate
-	 * @throws Exception
 	 */
 	public function decodeCertificate( $certificate ) {
 
 		$certificateDetails = openssl_x509_parse( $certificate );
 
 		if ( ! $certificateDetails ) {
-			throw new Exception( "Certificate parse failed" );
+			throw new CertificateParseException( "Certificate parse failed" );
 		}
 
 		$keyDetails = openssl_pkey_get_details( openssl_pkey_get_public( $certificate ) );

@@ -2,7 +2,8 @@
 
 namespace Zimosworld\SSLTools\Services;
 
-use Exception;
+use Zimosworld\SSLTools\Exception\InvalidCheckHostException;
+use Zimosworld\SSLTools\Exception\LookupException;
 use Zimosworld\SSLTools\Models\Check;
 
 /**
@@ -44,8 +45,6 @@ class CheckService extends BaseService implements CheckInterface {
 	 * Determine lookup type and split out hostname and port
 	 *
 	 * @param $url
-	 *
-	 * @throws Exception
 	 */
 	private function determineLookupType( $url ) {
 
@@ -61,7 +60,7 @@ class CheckService extends BaseService implements CheckInterface {
 				$parsedHost = parse_url( $url );
 
 				if ( empty( $parsedHost['host'] ) ) {
-					throw new Exception( 'Invalid lookup host' );
+					throw new InvalidCheckHostException( 'Invalid lookup host' );
 				}
 
 				$this->check->setLookupHost( $parsedHost['host'] );
@@ -71,7 +70,7 @@ class CheckService extends BaseService implements CheckInterface {
 				}
 				break;
 			default:
-				throw new Exception( 'Invalid lookup host' );
+				throw new InvalidCheckHostException( 'Invalid lookup host' );
 				break;
 		}
 
@@ -93,7 +92,7 @@ class CheckService extends BaseService implements CheckInterface {
 		$streamClient = @stream_socket_client( $checkHostname, $errorNo, $errorStr, 30, STREAM_CLIENT_CONNECT, $stream );
 
 		if ( ! $streamClient ) {
-			throw new Exception( 'Unknown lookup error occurred' );
+			throw new LookupException( 'Unknown lookup error occurred' );
 		}
 
 		$streamContent = stream_context_get_params( $streamClient );
@@ -102,15 +101,11 @@ class CheckService extends BaseService implements CheckInterface {
 		$certificateChain = [];
 		foreach ( $streamContent['options']['ssl']['peer_certificate_chain'] as $certificate ) {
 
-			try {
-				$certificateChain[ $loop ] = $this->decodeCertificate( $certificate );
+            $certificateChain[ $loop ] = $this->decodeCertificate( $certificate );
 
-				if ( $loop == 0 ) {
-					$certificateChain[ $loop ]->checkHostMatch( $this->check->getLookupHost() );
-				}
-			} catch ( Exception $exception ) {
-				throw new Exception( $exception->getMessage() );
-			}
+            if ( $loop == 0 ) {
+                $certificateChain[ $loop ]->checkHostMatch( $this->check->getLookupHost() );
+            }
 
 			$loop ++;
 		}

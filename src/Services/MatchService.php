@@ -2,7 +2,9 @@
 
 namespace Zimosworld\SSLTools\Services;
 
-use Exception;
+use Zimosworld\SSLTools\Exception\CertificateParseException;
+use Zimosworld\SSLTools\Exception\CertificateRequestParseException;
+use Zimosworld\SSLTools\Exception\PrivateKeyParseException;
 use Zimosworld\SSLTools\Models\Match;
 
 /**
@@ -25,20 +27,19 @@ class MatchService extends BaseService implements MatchInterface {
 	 * @param $certificate
 	 *
 	 * @return mixed|Match
-	 * @throws Exception
 	 */
 	public function matchWithPrivateKey( $privateKey, $certificate ) {
 
 		$certificateDetails = openssl_x509_parse( $certificate );
 
 		if ( ! $certificateDetails ) {
-			throw new Exception( "Certificate parse failed" );
+			throw new CertificateParseException( "Certificate parse failed" );
 		}
 
 		$privateKeyDetails = openssl_pkey_get_private( $privateKey );
 
 		if ( ! $privateKeyDetails ) {
-			throw new Exception( "Private Key parse failed" );
+			throw new PrivateKeyParseException( "Private Key parse failed" );
 		}
 
 		$match = new Match();
@@ -65,13 +66,13 @@ class MatchService extends BaseService implements MatchInterface {
 		$certificateDetails = openssl_x509_parse( $certificate );
 
 		if ( ! $certificateDetails ) {
-			throw new Exception( "Certificate parse failed" );
+			throw new CertificateParseException( "Certificate parse failed" );
 		}
 
 		$certificateRequestDetails = openssl_csr_get_subject( $certificateRequest );
 
 		if ( ! $certificateRequestDetails ) {
-			throw new Exception( "Certificate Request parse failed" );
+			throw new CertificateRequestParseException( "Certificate Request parse failed" );
 		}
 		$match = new Match();
 

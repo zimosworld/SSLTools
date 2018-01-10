@@ -2,7 +2,7 @@
 
 namespace Zimosworld\SSLTools\Services;
 
-use Exception;
+use Zimosworld\SSLTools\Exception\CertificateRequestParseException;
 use Zimosworld\SSLTools\Models\CertificateRequest;
 
 /**
@@ -23,15 +23,14 @@ class DecodeService extends BaseService implements DecodeInterface {
 	 *
 	 * @param $certificateRequest
 	 *
-	 * @return CertificateRequest
-	 * @throws Exception
+	 * @return mixed|CertificateRequest
 	 */
 	public function decodeCertificateRequest( $certificateRequest ) {
 
 		$certRequestDetails = openssl_csr_get_subject( $certificateRequest );
 
 		if ( ! $certRequestDetails ) {
-			throw new Exception( "Certificate Request parse failed" );
+			throw new CertificateRequestParseException( "Certificate Request parse failed" );
 		}
 
 		$keyDetails = openssl_pkey_get_details( openssl_csr_get_public_key( $certificateRequest ) );
