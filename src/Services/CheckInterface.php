@@ -4,12 +4,13 @@
  * Interface CheckInterface
  * @package Zimosworld\SSLTools\Services
  */
-interface CheckInterface {
+interface CheckInterface
+{
 
-	/**
-	 * @param string $hostname
-	 *
-	 * @return mixed
-	 */
-	public function checkInstalledCertificate( $hostname = '' );
+    /**
+     * @param string $hostname
+     *
+     * @return mixed
+     */
+    public function checkInstalledCertificate($hostname = '');
 }

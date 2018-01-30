@@ -6,21 +6,22 @@ namespace Zimosworld\SSLTools\Services;
  * Interface DecodeInterface
  * @package Zimosworld\SSLTools\Services
  */
-interface DecodeInterface {
+interface DecodeInterface
+{
 
-	/**
-	 * @param $certificate
-	 *
-	 * @return mixed
-	 */
-	public function decodeCertificate( $certificate );
+    /**
+     * @param $certificate
+     *
+     * @return mixed
+     */
+    public function decodeCertificate($certificate);
 
-	/**
-	 * @param $certificateRequest
-	 *
-	 * @return mixed
-	 */
-	public function decodeCertificateRequest( $certificateRequest );
+    /**
+     * @param $certificateRequest
+     *
+     * @return mixed
+     */
+    public function decodeCertificateRequest($certificateRequest);
 
 }
 

@@ -1,14 +1,16 @@
 <?php namespace Zimosworld\Tests\TestCase;
 
 use PHPUnit\Framework\TestCase;
+use Zimosworld\SSLTools\SSLTools;
 
 /**
  * Class BaseTestCase
  * @package Zimosworld\Tests\TestCase
  */
-class BaseTestCase extends TestCase {
+class BaseTestCase extends TestCase
+{
 
-	private $certificate = '-----BEGIN CERTIFICATE-----
+    private $certificate = '-----BEGIN CERTIFICATE-----
 MIIDZDCCAkwCCQDFapBwlifkjTANBgkqhkiG9w0BAQUFADB0MQswCQYDVQQGEwJB
 VTEdMBsGA1UEAxMUc3NsdG9vbHMuc3NsdXRpbC5jb20xDzANBgNVBAcTBlN5ZG5l
 eTERMA8GA1UEChMIU1NMIFRlc3QxDDAKBgNVBAgTA05TVzEUMBIGA1UECxMLRGV2
@@ -30,7 +32,7 @@ IOB6oL4TkaZ7HkBA5BTs+S14D1aPsP85LtaB3AYAzynGc60udt+MB9zPQ5B+ykiU
 FTuLFyGn1uU=
 -----END CERTIFICATE-----';
 
-	private $privateKey = '-----BEGIN PRIVATE KEY-----
+    private $privateKey = '-----BEGIN PRIVATE KEY-----
 MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDHNxjcjcusm5PO
 Qa71v4agV2Vc1EXLwuMwHxV8SFauI41SBwHrEeqLgufa/GD+Bm6kzKuiCdBcb9hp
 Fi91rySMQ4pLPb3QAnsIzwjr6k7WFaQdGzJb00oa1394QTC/JmC+iDpX1JapE7bx
@@ -59,7 +61,7 @@ arWhju78jVLNQHB1Zf2dO+uHoVypM60hGcRPYreigKtfeqtyMmAwyBaDrSePsAZH
 tDeVcToAvI70tNA5l+SL+yI3Pg==
 -----END PRIVATE KEY-----';
 
-	private $certificateRequest = '-----BEGIN CERTIFICATE REQUEST-----
+    private $certificateRequest = '-----BEGIN CERTIFICATE REQUEST-----
 MIICuDCCAaACADB0MQswCQYDVQQGEwJBVTEdMBsGA1UEAxMUc3NsdG9vbHMuc3Ns
 dXRpbC5jb20xDzANBgNVBAcTBlN5ZG5leTERMA8GA1UEChMIU1NMIFRlc3QxDDAK
 BgNVBAgTA05TVzEUMBIGA1UECxMLRGV2ZWxvcG1lbnQwggEiMA0GCSqGSIb3DQEB
@@ -77,46 +79,67 @@ i6WhgqI58tJyln+m8aFTNhfC8N4XFEkYXk5KowWeEsv9+FcK56kHQ3+N6DY5eVYK
 nxRIJXjEpHbdYnl2ebmDexlaMzrPFVS1uNDCWA==
 -----END CERTIFICATE REQUEST-----';
 
-	/**
-	 * @return string
-	 */
-	public function getCertificate() {
-		return $this->certificate;
-	}
+    /**
+     * @var mixed
+     */
+    public $sslTools;
 
-	/**
-	 * @param string $certificate
-	 */
-	public function setCertificate( $certificate ) {
-		$this->certificate = $certificate;
-	}
+    /**
+     * BaseTestCase constructor.
+     */
+    public function __construct()
+    {
+        $this->sslTools = SSLTools::getInstance();
 
-	/**
-	 * @return string
-	 */
-	public function getPrivateKey() {
-		return $this->privateKey;
-	}
+        parent::__construct();
+    }
 
-	/**
-	 * @param string $privateKey
-	 */
-	public function setPrivateKey( $privateKey ) {
-		$this->privateKey = $privateKey;
-	}
+    /**
+     * @return string
+     */
+    public function getCertificate()
+    {
+        return $this->certificate;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getCertificateRequest() {
-		return $this->certificateRequest;
-	}
+    /**
+     * @param string $certificate
+     */
+    public function setCertificate($certificate)
+    {
+        $this->certificate = $certificate;
+    }
 
-	/**
-	 * @param string $certificateRequest
-	 */
-	public function setCertificateRequest( $certificateRequest ) {
-		$this->certificateRequest = $certificateRequest;
-	}
+    /**
+     * @return string
+     */
+    public function getPrivateKey()
+    {
+        return $this->privateKey;
+    }
+
+    /**
+     * @param string $privateKey
+     */
+    public function setPrivateKey($privateKey)
+    {
+        $this->privateKey = $privateKey;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCertificateRequest()
+    {
+        return $this->certificateRequest;
+    }
+
+    /**
+     * @param string $certificateRequest
+     */
+    public function setCertificateRequest($certificateRequest)
+    {
+        $this->certificateRequest = $certificateRequest;
+    }
 
 }

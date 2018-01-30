@@ -3,7 +3,7 @@ SSL Tools
 
 ## What is this?
 
-SSL Tools is a set of tools that allow you to
+SSL Tools is a set of tools that allows you to
 
 * Decode PEM encoded certificate and certificate request
 * Confirm if a certificate/private key and certificate/certificate request (CSR) go together
@@ -11,7 +11,7 @@ SSL Tools is a set of tools that allow you to
 
 ## Installation
 
-### Via composer
+Install via composer
 
 ```sh
 composer require zimosworld/ssltools
@@ -19,70 +19,34 @@ composer require zimosworld/ssltools
 
 ## Usage
 
-### List of commands
+### Methods
+
+Available methods that can be called: 
 
 * decodeCertificate( $certificate )
 * decodeCertificateRequest( $certificateRequest )
 * matchWithPrivateKey( $privateKey, $certificate )
 * matchWithCSR( $certificateRequest, $certificate )
-* checkInstalledCertificate( $hostname )
+* checkInstalledCertificate( $url )
 
-### Examples
+### Usage Example
 
-Basic examples how to issue a request.
-
-#### Decode Certificate
+Basic usage example using the decodeCertificate method:
 
 ```php
 $certificate = '-----BEGIN CERTIFICATE-----
 ....
 -----END CERTIFICATE-----';
 
-$decode = new SSLTools();
-$result = $decode->decodeCertificate( $certificate );
+$sslTools = SSLTools::getInstance();
+$result = $sslTools->decodeCertificate( $certificate );
 
 var_dump( $result->getCommonName() );
-```
-
-### Decode Certificate Request
-```php
-$certificateRequest = '-----BEGIN CERTIFICATE REQUEST-----
-....
------END CERTIFICATE REQUEST-----';
-
-$decode = new SSLTools();
-$result = $decode->decodeCertificateRequest( $certificateRequest );
-
-var_dump( $result->getCommonName() );
-```
-
-#### Match Private Key and Certificate
-```php
-$certificate = '-----BEGIN CERTIFICATE-----
-....
------END CERTIFICATE-----';
-
-$privateKey = '-----BEGIN PRIVATE KEY-----
-....
------END PRIVATE KEY-----';
-
-$match  = new SSLTools();
-$result = $match->matchWithPrivateKey( $privateKey, $certificate );
-
-var_dump( $result->getMatch() );
-```
-
-#### Check Installed SSL
-```php
-$check  = new SSLTools();
-$result = $check->checkInstalledCertificate( 'http://google.com' );
-
-var_dump( $certificateChain[0]->toArray() );
 ```
 
 ## Running Tests
 
-Installation and Usage commands need to be run from the git root. 
+Installation and Usage commands need to be run from the library root. 
 
 ### Installation
 

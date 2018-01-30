@@ -6,6 +6,7 @@ namespace Zimosworld\SSLTools\Exception;
  * Class CertificateParseException
  * @package Zimosworld\SSLTools\Exception
  */
-class CertificateParseException extends \RuntimeException {
+class CertificateParseException extends \RuntimeException
+{
 
 }
